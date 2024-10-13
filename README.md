@@ -4,15 +4,14 @@ A project for CSC-207.
 
 Authors:
 
-* Your Name Here
+* Jafar Jarrar
 * Samuel A. Rebelsky (starter code)
 
 ---
 
 Overview:
 
-PLEASE PROVIDE AN OVERVIEW OF THE PROJECT FOR THOSE WHO MIGHT NOT
-OTHERWISE UNDERSTAND IT.
+Creating an implementation of a matrice data type in Java.
 
 ---
 
@@ -20,6 +19,6 @@ Citations:
 
 ---
 
-This code may be found at <https://github.com/USERID/mp-matrices-maven>. 
+This code may be found at <https://github.com/jafar-j/mp-matrices-maven.git>.
 
 The original code may be found at <https://github.com/Grinnell-CSC207/mp-matrices-maven>.
