@@ -14,12 +14,16 @@ public class MatrixV0<T> implements Matrix<T> {
   // | Fields |
   // +--------+
 
+  /** The 2d array to carry the values of the matrix. */
   private T[][] matrix;
 
+  /** The default value that the matrix is filled with. */
   private T defaultVal;
 
+  /** The width of the matrix. */
   private int width;
 
+  /** The height of the matrix. */
   private int height;
 
   // +--------------+------------------------------------------------
@@ -41,7 +45,15 @@ public class MatrixV0<T> implements Matrix<T> {
    *   If either the width or height are negative.
    */
   public MatrixV0(int width, int height, T def) {
-    this.matrix = (T[][]) (new Object[width][height]);
+    if (width < 0 || height < 0) {
+      throw new NegativeArraySizeException();
+    } // if
+    this.matrix = (T[][]) (new Object[height][width]);
+    for (int i = 0; i < height; i++) {
+      for (int j = 0; j < width; j++) {
+        this.matrix[i][j] = def;
+      } // for
+    } // for
     this.defaultVal = def;
     this.width = width;
     this.height = height;
@@ -81,6 +93,9 @@ public class MatrixV0<T> implements Matrix<T> {
    *   If either the row or column is out of reasonable bounds.
    */
   public T get(int row, int col) {
+    if (row < 0 || row > height || col < 0 || col > width) {
+      throw new IndexOutOfBoundsException();
+    } // if
     return this.matrix[row][col];
   } // get(int, int)
 
@@ -98,6 +113,9 @@ public class MatrixV0<T> implements Matrix<T> {
    *   If either the row or column is out of reasonable bounds.
    */
   public void set(int row, int col, T val) {
+    if (row < 0 || row > height || col < 0 || col > width) {
+      throw new IndexOutOfBoundsException();
+    } // if
     this.matrix[row][col] = val;
   } // set(int, int, T)
 
@@ -132,14 +150,14 @@ public class MatrixV0<T> implements Matrix<T> {
     if (!(row >= 0 && row <= this.height)) {
       throw new IndexOutOfBoundsException();
     } // if
-    T[][] newMatrix = (T[][]) (new Object[this.width][this.height + 1]);
+    T[][] newMatrix = (T[][]) (new Object[this.height + 1][this.width]);
     for (int i = 0; i < row; i++) {
       newMatrix[i] = this.matrix[i].clone();
     } // for
     for (int i = 0; i < this.width; i++) {
       newMatrix[row][i] = defaultVal;
     } // for
-    for (int i = row + 1; i < this.height; i++) {
+    for (int i = row + 1; i <= this.height; i++) {
       newMatrix[i] = this.matrix[i - 1].clone();
     } // for
     this.height++;
@@ -165,12 +183,12 @@ public class MatrixV0<T> implements Matrix<T> {
     } else if (vals.length != this.width) {
       throw new ArraySizeException();
     } // if
-    T[][] newMatrix = (T[][]) (new Object[this.width][this.height + 1]);
+    T[][] newMatrix = (T[][]) (new Object[this.height + 1][this.width]);
     for (int i = 0; i < row; i++) {
       newMatrix[i] = this.matrix[i].clone();
     } // for
     newMatrix[row] = vals.clone();
-    for (int i = row + 1; i < this.height; i++) {
+    for (int i = row + 1; i <= this.height; i++) {
       newMatrix[i] = this.matrix[i - 1].clone();
     } // for
     this.height++;
@@ -190,7 +208,7 @@ public class MatrixV0<T> implements Matrix<T> {
     if (!(col >= 0 && col <= this.width)) {
       throw new IndexOutOfBoundsException();
     } // if
-    T[][] newMatrix = (T[][]) (new Object[this.width + 1][this.height]);
+    T[][] newMatrix = (T[][]) (new Object[this.height][this.width + 1]);
     for (int i = 0; i < col; i++) {
       for (int j = 0; j < this.height; j++) {
         newMatrix[j][i] = this.matrix[j][i];
@@ -199,7 +217,7 @@ public class MatrixV0<T> implements Matrix<T> {
     for (int i = 0; i < this.height; i++) {
       newMatrix[i][col] = defaultVal;
     } // for
-    for (int i = col + 1; i < this.width; i++) {
+    for (int i = col + 1; i <= this.width; i++) {
       for (int j = 0; j < this.height; j++) {
         newMatrix[j][i] = this.matrix[j][i - 1];
       } // for
@@ -227,7 +245,7 @@ public class MatrixV0<T> implements Matrix<T> {
     } else if (vals.length != height) {
       throw new ArraySizeException();
     } // if
-    T[][] newMatrix = (T[][]) (new Object[this.width + 1][this.height]);
+    T[][] newMatrix = (T[][]) (new Object[this.height][this.width + 1]);
     for (int i = 0; i < col; i++) {
       for (int j = 0; j < this.height; j++) {
         newMatrix[j][i] = this.matrix[j][i];
@@ -236,7 +254,7 @@ public class MatrixV0<T> implements Matrix<T> {
     for (int i = 0; i < this.height; i++) {
       newMatrix[i][col] = vals[i];
     } // for
-    for (int i = col + 1; i < this.width; i++) {
+    for (int i = col + 1; i <= this.width; i++) {
       for (int j = 0; j < this.height; j++) {
         newMatrix[j][i] = this.matrix[j][i - 1];
       } // for
@@ -258,7 +276,7 @@ public class MatrixV0<T> implements Matrix<T> {
     if (row < 0 || row >= this.height) {
       throw new IndexOutOfBoundsException();
     } // if
-    T[][] newMatrix = (T[][]) (new Object[this.width][this.height - 1]);
+    T[][] newMatrix = (T[][]) (new Object[this.height - 1][this.width]);
     for (int i = 0; i < row; i++) {
       newMatrix[i] = this.matrix[i].clone();
     } // for
@@ -282,7 +300,7 @@ public class MatrixV0<T> implements Matrix<T> {
     if (col < 0 || col >= this.width) {
       throw new IndexOutOfBoundsException();
     } // if
-    T[][] newMatrix = (T[][]) (new Object[this.width - 1][this.height]);
+    T[][] newMatrix = (T[][]) (new Object[this.height][this.width - 1]);
     for (int i = 0; i < col; i++) {
       for (int j = 0; j < this.height; j++) {
         newMatrix[j][i] = this.matrix[j][i];
@@ -290,7 +308,7 @@ public class MatrixV0<T> implements Matrix<T> {
     } // for
     for (int i = col + 1; i < this.width; i++) {
       for (int j = 0; j < this.height; j++) {
-        newMatrix[j][i] = this.matrix[j][i - 1];
+        newMatrix[j][i - 1] = this.matrix[j][i];
       } // for
     } // for
     this.width--;
@@ -316,6 +334,12 @@ public class MatrixV0<T> implements Matrix<T> {
    */
   public void fillRegion(int startRow, int startCol, int endRow, int endCol,
       T val) {
+    if (startRow < 0 || startRow > this.height
+        || startCol < 0 || startCol > this.width
+        || endRow < startRow
+        || endCol < startCol) {
+      throw new IndexOutOfBoundsException();  
+    }
     for (int i = startRow; i < endRow; i++) {
       for (int j = startCol; j < endCol; j++) {
         this.matrix[i][j] = val;
@@ -346,6 +370,12 @@ public class MatrixV0<T> implements Matrix<T> {
    */
   public void fillLine(int startRow, int startCol, int deltaRow, int deltaCol,
       int endRow, int endCol, T val) {
+    if (startRow < 0 || startRow > this.height
+        || startCol < 0 || startCol > this.width
+        || endRow < startRow
+        || endCol < startCol) {
+      throw new IndexOutOfBoundsException();  
+    }
     int rowEnd = endRow;
     int colEnd = endCol;
     int rowIndex = startRow;
@@ -358,6 +388,9 @@ public class MatrixV0<T> implements Matrix<T> {
     } // if
     for (int i = rowIndex; i < rowEnd; i++) {
       for (int j = colIndex; j < colEnd; j++) {
+        if (rowIndex >= rowEnd || colIndex >= colEnd) {
+          return;
+        } // if
         this.matrix[rowIndex][colIndex] = val;
         rowIndex += deltaRow;
         colIndex += deltaCol;
@@ -390,18 +423,22 @@ public class MatrixV0<T> implements Matrix<T> {
    * height, and equal elements; false otherwise.
    */
   public boolean equals(Object other) {
-    if (other instanceof MatrixV0 && ((MatrixV0) other).width == this.width
-      && ((MatrixV0<T>) other).height == this.height
-      && ((MatrixV0<T>) other).defaultVal == this.defaultVal) {
+    if (other instanceof MatrixV0
+      && ((MatrixV0) other).width == this.width
+      && ((MatrixV0<T>) other).height == this.height) {
       for (int i = 0; i < this.height; i++) {
         for (int j = 0; j < this.width; j++) {
-          if (((MatrixV0<T>)other).matrix[i][j] != this.matrix[i][j]) {
+          if ((((MatrixV0) other).matrix[i][j] == null && this.matrix[i][j] != null)
+              || (this.matrix[i][j] == null && ((MatrixV0) other).matrix[i][j] != null)) {
+            return false;
+          } else if (!(((MatrixV0<T>)other).matrix[i][j].equals(this.matrix[i][j]))) {
             return false;
           } // if
         } // for
       } // for
+      return true;
     } // if
-    return true;
+    return false;
   } // equals(Object)
 
   /**
