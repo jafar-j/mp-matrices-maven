@@ -338,8 +338,8 @@ public class MatrixV0<T> implements Matrix<T> {
         || startCol < 0 || startCol > this.width
         || endRow < startRow
         || endCol < startCol) {
-      throw new IndexOutOfBoundsException();  
-    }
+      throw new IndexOutOfBoundsException();
+    } // if
     for (int i = startRow; i < endRow; i++) {
       for (int j = startCol; j < endCol; j++) {
         this.matrix[i][j] = val;
@@ -374,8 +374,8 @@ public class MatrixV0<T> implements Matrix<T> {
         || startCol < 0 || startCol > this.width
         || endRow < startRow
         || endCol < startCol) {
-      throw new IndexOutOfBoundsException();  
-    }
+      throw new IndexOutOfBoundsException();
+    } // if
     int rowEnd = endRow;
     int colEnd = endCol;
     int rowIndex = startRow;
@@ -424,14 +424,14 @@ public class MatrixV0<T> implements Matrix<T> {
    */
   public boolean equals(Object other) {
     if (other instanceof MatrixV0
-      && ((MatrixV0) other).width == this.width
-      && ((MatrixV0<T>) other).height == this.height) {
+        && ((MatrixV0) other).width == this.width
+        && ((MatrixV0<T>) other).height == this.height) {
       for (int i = 0; i < this.height; i++) {
         for (int j = 0; j < this.width; j++) {
           if ((((MatrixV0) other).matrix[i][j] == null && this.matrix[i][j] != null)
               || (this.matrix[i][j] == null && ((MatrixV0) other).matrix[i][j] != null)) {
             return false;
-          } else if (!(((MatrixV0<T>)other).matrix[i][j].equals(this.matrix[i][j]))) {
+          } else if (!(((MatrixV0<T>) other).matrix[i][j].equals(this.matrix[i][j]))) {
             return false;
           } // if
         } // for

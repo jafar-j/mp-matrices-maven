@@ -16,7 +16,7 @@ import org.junit.jupiter.api.Test;
 public class TestsByStudent {
     
     /**
-    * Tests whether new matrices are created correctly.
+    * Tests whether new matrices are initialized correctly.
     */
     @Test
     public void testNewMatrix() {
@@ -41,6 +41,10 @@ public class TestsByStudent {
             , "Checks if negative inputs throw exception.");
     } // testNewMatrix()
 
+    /**
+     * Tests if values are retrieved correctly.
+     * Checks if out of bounds exception is thrown when wrong row or col values are entered.
+     */
     @Test
     public void testGet() {
         Matrix<String> test1 = new MatrixV0<String>(2,2,"wee");
@@ -56,6 +60,10 @@ public class TestsByStudent {
             , "Case where value to be retrieved is greater than bounds.");
     } // testGet()
 
+    /**
+     * Tests if values are set correctly.
+     * Checks if out of bounds exception is thrown when wrong row or col values are entered.
+     */
     @Test
     public void testSet() {
         Matrix<String> test1 = new MatrixV0<String>(2,3, "wee");
@@ -73,18 +81,28 @@ public class TestsByStudent {
             , "Case where value to be set is negative.");
     } // testSet()
 
+    /**
+     * Tests if height field carries the correct value when a matrix is initialized.
+     */
     @Test
     public void testHeight() {
         Matrix<String> test1 = new MatrixV0<String>(2,3, "waa");
         assertEquals(3, test1.height(), "Checks if height is set and retrieved correctly.");
     } // testHeight()
 
+    /**
+     * Tests if width field carries the correct value when a matrix is initialized.
+     */
     @Test
     public void testWidth() {
         Matrix<String> test1 = new MatrixV0<String>(2,3, "waa");
         assertEquals(2, test1.width(), "Checks if width is set and retrieved correctly.");
     } // testWidth()
 
+    /**
+     * Tests if a row of default values is inserted correctly and fields are adjusted accordingly.
+     * Checks whether out of bounds exception is thrown in cases where invalid input is entered.
+     */
     @Test
     public void testInsertRow1() {
         Matrix<String> test1 = new MatrixV0<String>(2,3, "a");
@@ -119,6 +137,12 @@ public class TestsByStudent {
             , "Row cannot be inserted two indices after end of matriix.");
     } // testInsertRow()
 
+    /**
+     * Tests if an array of values is inserted correctly as a row.
+     * Checks whether array size exception is thrown in cases where the array size does not match
+     * the matrix width.
+     * @throws ArraySizeException
+     */
     @Test
     public void testInsertRow2() throws ArraySizeException {
         Matrix<String> test1 = new MatrixV0<String>(2, 2, "b");
@@ -148,6 +172,10 @@ public class TestsByStudent {
             , "Checks that exception is thrown given incorrect row size.");
     } // testInsertRow2()
 
+    /**
+     * Tests if a column of default values is inserted correctly and fields are adjusted accordingly.
+     * Checks whether out of bounds exception is thrown in cases where invalid input is entered.
+     */
     @Test
     public void testInsertCol1 () {
         Matrix<String> test1 = new MatrixV0<String>(3, 2, "c");
@@ -174,6 +202,12 @@ public class TestsByStudent {
         assertEquals(6, test1.width(), "Checks if width is adjusted.");
     } // testInsertCol()
 
+    /**
+     * Tests if an array of values is inserted correctly as a column.
+     * Checks whether array size exception is thrown in cases where the array size does not match
+     * the matrix height.
+     * @throws ArraySizeException
+     */
     @Test
     public void testInsertCol2 () throws ArraySizeException {
         Matrix<String> test1 = new MatrixV0<String>(3, 2, "c");
@@ -201,6 +235,10 @@ public class TestsByStudent {
             , "Checks that exception is thrown when given incorrect col size.");
     } // testInsertCol2()
 
+    /**
+     * Tests whether row is deleted correctly and if fields are adjusted accordingly.
+     * Checks if out of bounds exception is thrown when matrix is empty and method is called.
+     */
     @Test
     public void testDeleteRow() {
         Matrix<String> test1 = new MatrixV0<String>(3, 3, "d");
@@ -217,6 +255,10 @@ public class TestsByStudent {
             , "Checks that exception is thrown if invalid row position is passed.");
     } // testDeleteRow()
 
+    /**
+     * Tests whether column is deleted correctly and if fields are adjusted accordingly.
+     * Checks if out of bounds exception is thrown when matrix is empty and method is called.
+     */
     @Test
     public void testDeleteCol() {
         Matrix<String> test1 = new MatrixV0<String>(3, 3, "f");
@@ -234,6 +276,10 @@ public class TestsByStudent {
         , "Checks that exception is thrown if invalid column position is passed.");
     } // testDeleteCol()
 
+    /**
+     * Tests if desired region is filled correctly.
+     * Checks if out of bounds exception is thrown for various invalid input cases.
+     */
     @Test
     public void testFillRegion() {
         Matrix<String> test1 = new MatrixV0<String>(4, 4, "g");
@@ -257,6 +303,11 @@ public class TestsByStudent {
             , "Checks if exception is thrown when end values exceed matrix size.");
     } // testFillRegion()
 
+    /**
+     * Tests if line is filled with desired value at correct indices even if the end bounds are
+     * greater than the matrix size.
+     * Checks if out of bounds exception is thrown for various invalid input cases.
+     */
     @Test
     public void testFillLine() {
         Matrix<String> test1 = new MatrixV0<String>(5, 5, "h");
@@ -283,6 +334,9 @@ public class TestsByStudent {
             , "Checks if exception is thrown when start values are negative.");
     } // testFillLine()
 
+    /**
+     * Checks if matrix is cloned correctly and that the cloned matrix is not linked to the original matrix.
+     */
     @Test
     public void testClone() {
         Matrix<String> test1 = new MatrixV0<String>(2, 3, "l");
@@ -306,6 +360,10 @@ public class TestsByStudent {
                         {"l", "l"}}, test1, "Checks that initial matrix is not modified (they should not be linked)");
     } // testClone()
 
+    /**
+     * Checks if matrices are equal to one another when they should be, and are not
+     * equal when they should not be.
+     */
     @Test
     public void testEquals() {
         Matrix<String> test1 = new MatrixV0<String>(7, 7, "m");
